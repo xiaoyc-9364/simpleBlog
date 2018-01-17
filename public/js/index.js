@@ -1,3 +1,4 @@
+
 $(document).ready(function(){
     var $loginBox = $('#loginBox');
     var $registerBox = $('#registerBox');
@@ -21,9 +22,38 @@ $(document).ready(function(){
                 repassword: $registerBox.find('[name="repassword"]').val(),
             },
             dataType: 'json',
-            success: function(result) {
-                console.log(result);
+            success:(result) => {
+                $registerBox.find('.colWarning').html(result.message);
+                if (!result.code) {
+                    setTimeout(() => {
+                        $registerBox.hide();
+                        $loginBox.show();
+                    },1000);
+                    
+                }
             }
         });
-    })
+    });
+    //登录
+    $loginBox.find('button').click(function() {
+        $.ajax({
+            type:'post',
+            url: '/api/user/login',
+            data: {
+                username: $loginBox.find('[name="username"]').val(),
+                password: $loginBox.find('[name="password"]').val(),
+            },
+            dataType: 'json',
+            success:(result) => {
+                $loginBox.find('.colWarning').html(result.message);
+                // if (!result.code) {
+                //     setTimeout(() => {
+                //         $registerBox.hide();
+                //         $loginBox.show();
+                //     },1000);
+                    
+                // }
+            }
+        });
+    });
 });

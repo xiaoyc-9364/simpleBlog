@@ -1,5 +1,42 @@
 .rightBox {
-    width: 300px;
-    border: 1px solid #000;
-    margin-bottom: 5px;
+  margin: 30px auto;
+  width: 300px;
+  border: 1px solid #000;
+  margin-bottom: 5px;
+}
+
+.rightBox .title {
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  background: #ce8639;
+  font-size: 18px;
+  color: #fff;
+}
+
+.rightBox .lint {
+  padding: 10px 15px 0;
+}
+
+.rightBox .lint .colDark {
+  display: inline-block;
+  width: 80px;
+}
+
+.rightBox .lint button {
+  width: 60px;
+  height: 40px;
+  font-size: 16px;
+  border-radius: 5px;
+  outline: none;
+}
+
+.rightBox .textRight {
+  padding: 0 15px;
+}
+
+.rightBox .colWarning {
+  padding: 15px;
+  color: #b84545;
+  text-align: center;
 }

@@ -8,7 +8,7 @@ var mongoose = require('mongoose');
 var bodyParser = require('body-parser');    //加载body-parser,处理post提交过来的数据
 
 var app = express();    //服务端对象
-
+app.use(bodyParser.urlencoded({extended: true}));
 //静态文件
 app.use('/public', express.static(__dirname + '/public'));
 
@@ -19,13 +19,13 @@ app.use('/', require('./routers/main'));
 
 app.engine('html', swig.renderFile); //定义模板引擎
 
-app.set('views', './views');//第一个参数必须是views；
+app.set('views', './views');        //第一个参数必须是views；
 
-app.set('view engine', 'html');//注册模板引擎
+app.set('view engine', 'html');     //注册模板引擎
 //开发中取消缓存
 swig.setDefaults({cache:false});
 
-app.use(bodyParser.urlencoded({extended: true}));
+// app.use(bodyParser.json());
 
 
 //连接数据库
