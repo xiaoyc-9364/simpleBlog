@@ -3,10 +3,19 @@ var express = require('express');
 
 var swig = require('swig');
 
+var mongoose = require('mongoose');
+
+var bodyParser = require('body-parser');    //加载body-parser,处理post提交过来的数据
+
 var app = express();    //服务端对象
 
 //静态文件
 app.use('/public', express.static(__dirname + '/public'));
+
+//模块
+app.use('/admin', require('./routers/admin'));
+app.use('/api', require('./routers/api'));
+app.use('/', require('./routers/main'));
 
 app.engine('html', swig.renderFile); //定义模板引擎
 
@@ -16,15 +25,17 @@ app.set('view engine', 'html');//注册模板引擎
 //开发中取消缓存
 swig.setDefaults({cache:false});
 
-app.get('/', function(req, res, next) {
-    // res.send('<h1>欢迎光临我的博客首页！</h1>');
-    //读取模板文件,找到views下的index；
-    res.render('index')
-});
+app.use(bodyParser.urlencoded({extended: true}));
 
-app.get('/', function(req, res, next) {
-    res.writeHead('content-type', 'text/css');
-    res.send('body{background:red;}');
+
+//连接数据库
+mongoose.connect('mongodb://localhost:27018/blog', {useMongoClient: true}, function(err) {
+    if (err) {
+        console.log('数据库连接失败!');
+    } else {
+        console.log('数据库连接成!');
+    }
+    
 })
 
 
